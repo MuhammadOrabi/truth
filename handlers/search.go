@@ -33,7 +33,7 @@ func Search(c echo.Context) error {
 		return err
 	}
 
-	var data []map[string]interface{}
+	var data []interface{}
 	for _, source := range sources {
 		if source.Active {
 			crawl := &crawler.Crawler{
@@ -46,10 +46,7 @@ func Search(c echo.Context) error {
 				return err
 			}
 
-			data = append(data, map[string]interface{}{
-				"source": source,
-				"data":   output,
-			})
+			data = append(data, output)
 		}
 	}
 	return c.JSON(http.StatusOK, data)

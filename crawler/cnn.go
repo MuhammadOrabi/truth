@@ -14,6 +14,7 @@ type CNNCard struct {
 	Image string `json:"image"`
 	Date string `json:"date"`
 	Description string `json:"description"`
+	Source string `json:"source"`
 }
 
 func (craw Crawler) StartCNN() ([]CNNCard, error) {
@@ -71,6 +72,7 @@ func (craw Crawler) StartCNN() ([]CNNCard, error) {
 		response[i].Title = d.Children[0].NodeValue
 		response[i].Description = desc.Children[0].NodeValue
 		response[i].Date = date.Children[0].NodeValue
+		response[i].Source = craw.Source.Name
 	}
 
 	return response, nil
