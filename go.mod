@@ -1,4 +1,4 @@
-module truth-finder
+module truth
 
 go 1.15
 

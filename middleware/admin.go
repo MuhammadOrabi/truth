@@ -3,7 +3,7 @@ package middleware
 import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4"
-	"truth-finder/database"
+	"truth/database"
 )
 
 // IsAdmin ...

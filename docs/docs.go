@@ -20,7 +20,7 @@ var doc = `{
         "title": "{{.Title}}",
         "contact": {
             "name": "API Support",
-            "url": "https://truth-finder.orabi.me/support",
+            "url": "https://truth.orabi.me/support",
             "email": "muhammad@orabi.me"
         },
         "license": {

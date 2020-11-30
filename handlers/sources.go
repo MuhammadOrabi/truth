@@ -4,7 +4,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"log"
 	"net/http"
-	"truth-finder/database"
+	"truth/database"
 
 	"github.com/labstack/echo/v4"
 	"gopkg.in/mgo.v2/bson"

@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 	"time"
-	"truth-finder/database"
+	"truth/database"
 )
 
 type AuthResponse struct {

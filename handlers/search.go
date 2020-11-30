@@ -2,8 +2,8 @@ package handlers
 
 import (
 	"net/http"
-	"truth-finder/crawler"
-	"truth-finder/database"
+	"truth/crawler"
+	"truth/database"
 
 	"github.com/labstack/echo/v4"
 )

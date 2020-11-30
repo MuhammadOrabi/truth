@@ -1,6 +1,6 @@
 package crawler
 
-import "truth-finder/database"
+import "truth/database"
 
 type Crawler struct {
 	Source database.Source

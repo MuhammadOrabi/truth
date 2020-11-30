@@ -4,10 +4,10 @@ import (
 	"log"
 	"os"
 	"strings"
-	"truth-finder/database"
-	"truth-finder/docs"
-	"truth-finder/handlers"
-	middleware2 "truth-finder/middleware"
+	"truth/database"
+	"truth/docs"
+	"truth/handlers"
+	middleware2 "truth/middleware"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/joho/godotenv"
@@ -31,7 +31,7 @@ func (cv *CustomValidator) Validate(i interface{}) error {
 // @description This is a Truth Finder server.
 
 // @contact.name API Support
-// @contact.url https://truth-finder.orabi.me/support
+// @contact.url https://truth.orabi.me/support
 // @contact.email muhammad@orabi.me
 
 // @license.name Apache 2.0
