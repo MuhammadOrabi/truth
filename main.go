@@ -46,7 +46,7 @@ func init() {
 		log.Fatalf("Error loading .env file")
 	}
 
-	docs.SwaggerInfo.Host = os.Getenv("APP_HOST") + ":" + os.Getenv("APP_PORT")
+	docs.SwaggerInfo.Host = os.Getenv("APP_DOMAIN")
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 }
 
