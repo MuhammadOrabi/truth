@@ -53,7 +53,7 @@ func init() {
 
 func main() {
 	db := storage.NewDB()
-	db.AutoMigrate(&model.User{})
+	db.AutoMigrate(&model.User{}, &model.Source{})
 
 	e := echo.New()
 	e.Validator = &CustomValidator{validator: validator.New()}
