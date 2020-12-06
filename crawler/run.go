@@ -9,7 +9,7 @@ type Crawler struct {
 	Keyword string
 }
 
-func (craw *Crawler) Run() (interface{}, error) {
+func (craw *Crawler) Run() ([]CNNCard, error) {
 	if craw.Source.Name == "CNN" {
 		return craw.StartCNN()
 	}

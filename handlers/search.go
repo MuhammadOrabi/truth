@@ -43,7 +43,9 @@ func Search(c echo.Context) error {
 				return err
 			}
 
-			data = append(data, output)
+			for _, v := range output {
+				data = append(data, v)
+			}
 		}
 	}
 	return c.JSON(http.StatusOK, data)
