@@ -1,6 +1,7 @@
 package model
 
 import (
+	"github.com/lib/pq"
 	"log"
 	"truth/storage"
 )
@@ -10,7 +11,7 @@ type Source struct {
 	ID     uint `json:"id,omitempty" gorm:"primaryKey,autoIncrement" swaggerignore:"true"`
 	Name   string             `json:"name" bson:"name" validate:"required"`
 	URL    string             `json:"url" bson:"url" validate:"required"`
-	Tags   []string           `json:"tags" bson:"tags" validate:"required"`
+	Tags   pq.StringArray      `json:"tags" gorm:"type:text[]" validate:"required"`
 	Active bool               `json:"active" bson:"active" validate:"required"`
 	Status string             `json:"status" bson:"status" validate:"required"`
 }
