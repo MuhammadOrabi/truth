@@ -1,18 +1,16 @@
-package database
+package model
 
 import (
-	"context"
 	"github.com/dgrijalva/jwt-go"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
 	"log"
 	"os"
 	"time"
+	"truth/storage"
 )
 
 type User struct {
-	ID        primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty" swaggerignore:"true"`
+	ID        uint 			     `json:"id,omitempty" gorm:"primaryKey,autoIncrement" swaggerignore:"true"`
 	Name      string             `json:"name" bson:"name" validate:"required"`
 	Email     string             `json:"email" bson:"email" validate:"required"`
 	Password  string             `json:"password" bson:"password" validate:"required"`
@@ -21,6 +19,7 @@ type User struct {
 	CreatedAt time.Time          `json:"created_at" bson:"created_at" swaggerignore:"true"`
 	UpdatedAt time.Time          `json:"updated_at" bson:"updated_at" swaggerignore:"true"`
 }
+
 
 type JwtClaims struct {
 	User User `json:"user"`
@@ -69,34 +68,24 @@ func (u *User) GenerateJWT() (string, error) {
 }
 
 // CreateUser ...
-func CreateUser(user *User) (*User, error) {
-	db := Load()
+func CreateUser(user *User) *User {
+	db := storage.GetDBInstance()
 
 	user.Password = hashAndSalt([]byte(user.Password))
 
-	res, err := db.Users.InsertOne(context.TODO(), user)
-	if err != nil {
-		log.Println("err", err)
-		return nil, err
+	result := db.Create(&user)
+	if result.Error != nil {
+		log.Fatal(result.Error)
 	}
 
-	ID, _ := res.InsertedID.(primitive.ObjectID)
-	user.ID = ID
-
-	return user, nil
+	return user
 }
 
 // FindUser ...
-func FindUserByEmail(email string) (*User, error) {
-	db := Load()
-
+func FindUserByEmail(email string) *User {
+	db := storage.GetDBInstance()
 	var user User
-	filter := bson.D{primitive.E{Key: "email", Value: email}}
+	db.Where(&User{Email: email}).First(&user)
 
-	err := db.Users.FindOne(context.TODO(), filter).Decode(&user)
-	if err != nil {
-		return nil, err
-	}
-
-	return &user, nil
+	return &user
 }

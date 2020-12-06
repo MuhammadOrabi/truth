@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 	"truth/crawler"
-	"truth/database"
+	"truth/model"
 
 	"github.com/labstack/echo/v4"
 )
@@ -28,10 +28,7 @@ func Search(c echo.Context) error {
 		return err
 	}
 
-	sources, err := database.GetSources()
-	if err != nil {
-		return err
-	}
+	sources := model.GetSources()
 
 	var data []interface{}
 	for _, source := range sources {

@@ -4,10 +4,11 @@ import (
 	"log"
 	"os"
 	"strings"
-	"truth/database"
 	"truth/docs"
 	"truth/handlers"
 	middleware2 "truth/middleware"
+	"truth/model"
+	"truth/storage"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/joho/godotenv"
@@ -47,10 +48,13 @@ func init() {
 	}
 
 	docs.SwaggerInfo.Host = os.Getenv("APP_DOMAIN")
-	docs.SwaggerInfo.Schemes = []string{"http", "https"}
+	docs.SwaggerInfo.Schemes = []string{os.Getenv("APP_SCHEMA")}
 }
 
 func main() {
+	db := storage.NewDB()
+	db.AutoMigrate(&model.User{})
+
 	e := echo.New()
 	e.Validator = &CustomValidator{validator: validator.New()}
 
@@ -61,13 +65,13 @@ func main() {
 	e.Use(middleware.Recover())
 	e.Pre(middleware.RemoveTrailingSlash())
 
-	e.GET("/swagger/*", echoSwagger.WrapHandler)
+	e.GET("/docs/*", echoSwagger.WrapHandler)
 
 	e.POST("/auth/register", handlers.Register)
 	e.POST("/auth/login", handlers.Login)
 
 	config := middleware.JWTConfig{
-		Claims:     &database.JwtClaims{},
+		Claims:     &model.JwtClaims{},
 		SigningKey: []byte("secret"),
 		BeforeFunc: func(context echo.Context) {
 			token := context.Request().Header.Get("Authorization")

@@ -13,6 +13,7 @@ require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-openapi/spec v0.19.15 // indirect
+	github.com/go-pg/pg/v10 v10.7.3 // indirect
 	github.com/go-playground/validator/v10 v10.4.1
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gocolly/colly v1.2.0
@@ -20,11 +21,13 @@ require (
 	github.com/golang/protobuf v1.4.3 // indirect
 	github.com/gotk3/gotk3 v0.5.0 // indirect
 	github.com/headzoo/surf v1.0.0 // indirect
+	github.com/jinzhu/gorm v1.9.16
 	github.com/joho/godotenv v1.3.0
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/echo/v4 v4.1.17
 	github.com/labstack/gommon v0.3.0 // indirect
+	github.com/lib/pq v1.9.0 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/ory/hydra-client-go v1.8.5 // indirect
@@ -39,12 +42,12 @@ require (
 	github.com/urfave/cli/v2 v2.3.0 // indirect
 	github.com/valyala/fasttemplate v1.2.1 // indirect
 	go.mongodb.org/mongo-driver v1.4.2
-	golang.org/x/crypto v0.0.0-20201016220609-9e8e0b390897
-	golang.org/x/sys v0.0.0-20201029080932-201ba4db2418 // indirect
+	golang.org/x/crypto v0.0.0-20201203163018-be400aefbc4c
 	golang.org/x/text v0.3.4 // indirect
 	golang.org/x/tools v0.0.0-20201130202245-0e8b1ee18183 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/headzoo/surf.v1 v1.0.0
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
+	gorm.io/gorm v1.20.8 // indirect
 )

@@ -4,7 +4,8 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"log"
 	"net/http"
-	"truth/database"
+	"strconv"
+	"truth/model"
 
 	"github.com/labstack/echo/v4"
 	"gopkg.in/mgo.v2/bson"
@@ -19,12 +20,9 @@ import (
 // @Router /sources [get]
 func ListSources(c echo.Context) error {
 	user := c.Get("user").(*jwt.Token)
-	claims := user.Claims.(*database.JwtClaims)
+	claims := user.Claims.(*model.JwtClaims)
 	log.Println("claims", *claims)
-	sources, err := database.GetSources()
-	if err != nil {
-		return err
-	}
+	sources := model.GetSources()
 	return c.JSON(http.StatusOK, sources)
 }
 
@@ -38,16 +36,14 @@ func ListSources(c echo.Context) error {
 // @Security ApiKeyAuth
 // @Router /sources [post]
 func CreateSource(c echo.Context) error {
-	source := new(database.Source)
+	source := new(model.Source)
 	if err := c.Bind(source); err != nil {
 		return err
 	}
 	if err := c.Validate(source); err != nil {
 		return err
 	}
-	if err := database.CreateSources(source); err != nil {
-		return err
-	}
+	model.CreateSources(source)
 	return c.JSON(http.StatusCreated, bson.M{})
 }
 
@@ -59,10 +55,7 @@ func CreateSource(c echo.Context) error {
 // @Security ApiKeyAuth
 // @Router /sources/{id} [delete]
 func DeleteSource(c echo.Context) error {
-	ID := c.Param("id")
-	err := database.DeleteSource(ID)
-	if err != nil {
-		return err
-	}
+	ID, _ := strconv.ParseUint(c.Param("id"), 10, 32)
+	model.DeleteSource(uint(ID))
 	return c.NoContent(http.StatusNoContent)
 }

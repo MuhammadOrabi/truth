@@ -3,10 +3,9 @@ package handlers
 import (
 	"github.com/labstack/echo/v4"
 	"gopkg.in/mgo.v2/bson"
-	"log"
 	"net/http"
 	"time"
-	"truth/database"
+	"truth/model"
 )
 
 type AuthResponse struct {
@@ -27,7 +26,7 @@ type LoginBody struct {
 // @Success 200 {object} AuthResponse
 // @Router /auth/register [post]
 func Register(c echo.Context) error {
-	userBody := new(database.User)
+	userBody := new(model.User)
 	userBody.Active = true
 	userBody.RoleID = 2
 	userBody.CreatedAt = time.Now()
@@ -40,16 +39,12 @@ func Register(c echo.Context) error {
 		return err
 	}
 
-	u, _ := database.FindUserByEmail(userBody.Email)
-	if u != nil {
+	u := model.FindUserByEmail(userBody.Email)
+	if u.ID != 0 {
 		return echo.ErrBadRequest
 	}
 
-	user, err := database.CreateUser(userBody)
-	if err != nil {
-		log.Println("error", err)
-		return err
-	}
+	user := model.CreateUser(userBody)
 
 	token, err := user.GenerateJWT()
 	if err != nil {
@@ -78,8 +73,8 @@ func Login(c echo.Context) error {
 		return err
 	}
 
-	user, _ := database.FindUserByEmail(body.Email)
-	if user == nil {
+	user := model.FindUserByEmail(body.Email)
+	if user.ID == 0 {
 		return echo.ErrUnauthorized
 	}
 

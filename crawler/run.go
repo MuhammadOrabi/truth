@@ -1,9 +1,11 @@
 package crawler
 
-import "truth/database"
+import (
+	"truth/model"
+)
 
 type Crawler struct {
-	Source database.Source
+	Source model.Source
 	Keyword string
 }
 
