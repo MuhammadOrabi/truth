@@ -15,7 +15,7 @@ import (
 // @Tags Sources
 // @Summary List sources
 // @Produce json
-// @Success 200 {array} database.Source
+// @Success 200 {array} model.Source
 // @Security ApiKeyAuth
 // @Router /sources [get]
 func ListSources(c echo.Context) error {
@@ -31,7 +31,7 @@ func ListSources(c echo.Context) error {
 // @Summary Create source
 // @Accept  json
 // @Produce json
-// @Param source body database.Source true "Source"
+// @Param source body model.Source true "Source"
 // @Success 201
 // @Security ApiKeyAuth
 // @Router /sources [post]

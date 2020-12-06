@@ -22,7 +22,7 @@ type LoginBody struct {
 // @Summary Register
 // @Accept  json
 // @Produce json
-// @Param user body database.User true "User"
+// @Param user body model.User true "User"
 // @Success 200 {object} AuthResponse
 // @Router /auth/register [post]
 func Register(c echo.Context) error {
