@@ -41,7 +41,9 @@ func Register(c echo.Context) error {
 
 	u := model.FindUserByEmail(userBody.Email)
 	if u.ID != 0 {
-		return echo.ErrBadRequest
+		return c.JSON(http.StatusUnprocessableEntity, bson.M{
+			"error": "user already exists",
+		})
 	}
 
 	user := model.CreateUser(userBody)
