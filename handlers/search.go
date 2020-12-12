@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"gopkg.in/mgo.v2/bson"
 	"net/http"
 	"truth/crawler"
 	"truth/model"
@@ -48,5 +49,7 @@ func Search(c echo.Context) error {
 			}
 		}
 	}
-	return c.JSON(http.StatusOK, data)
+	return c.JSON(http.StatusOK, bson.M{
+		"result": data,
+	})
 }
