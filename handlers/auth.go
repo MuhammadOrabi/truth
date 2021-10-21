@@ -1,11 +1,13 @@
 package handlers
 
 import (
-	"github.com/labstack/echo/v4"
-	"gopkg.in/mgo.v2/bson"
+	"log"
 	"net/http"
 	"time"
 	"truth/model"
+
+	"github.com/labstack/echo/v4"
+	"gopkg.in/mgo.v2/bson"
 )
 
 type AuthResponse struct {
@@ -28,17 +30,19 @@ type LoginBody struct {
 func Register(c echo.Context) error {
 	userBody := new(model.User)
 	userBody.Active = true
-	userBody.RoleID = 2
 	userBody.CreatedAt = time.Now()
 	userBody.UpdatedAt = time.Now()
 
 	if err := c.Bind(userBody); err != nil {
 		return err
 	}
+	log.Println("userBody", userBody)
+	if userBody.RoleID == 0 {
+		userBody.RoleID = 2
+	}
 	if err := c.Validate(userBody); err != nil {
 		return err
 	}
-
 	u := model.FindUserByEmail(userBody.Email)
 	if u.ID != 0 {
 		return c.JSON(http.StatusUnprocessableEntity, bson.M{
@@ -90,7 +94,7 @@ func Login(c echo.Context) error {
 		return err
 	}
 
-	return c.JSON(http.StatusCreated, bson.M{
+	return c.JSON(http.StatusOK, bson.M{
 		"token": token,
 	})
 }

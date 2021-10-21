@@ -1,25 +1,25 @@
 package model
 
 import (
-	"github.com/dgrijalva/jwt-go"
-	"golang.org/x/crypto/bcrypt"
 	"log"
 	"os"
 	"time"
 	"truth/storage"
+
+	"github.com/dgrijalva/jwt-go"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
-	ID        uint 			     `json:"id,omitempty" gorm:"primaryKey,autoIncrement" swaggerignore:"true"`
-	Name      string             `json:"name" bson:"name" validate:"required"`
-	Email     string             `json:"email" bson:"email" validate:"required"`
-	Password  string             `json:"password" bson:"password" validate:"required"`
-	Active    bool               `json:"active" bson:"active" validate:"required" swaggerignore:"true"`
-	RoleID    int                `json:"role_id" bson:"role_id" validate:"required" swaggerignore:"true"`
-	CreatedAt time.Time          `json:"created_at" bson:"created_at" swaggerignore:"true"`
-	UpdatedAt time.Time          `json:"updated_at" bson:"updated_at" swaggerignore:"true"`
+	ID        uint      `json:"id,omitempty" gorm:"primaryKey,autoIncrement" swaggerignore:"true"`
+	Name      string    `json:"name" bson:"name" validate:"required"`
+	Email     string    `json:"email" bson:"email" validate:"required"`
+	Password  string    `json:"password" bson:"password" validate:"required"`
+	Active    bool      `json:"active" bson:"active" validate:"required" swaggerignore:"true"`
+	RoleID    int       `json:"role_id" bson:"role_id" validate:"required" swaggerignore:"true"`
+	CreatedAt time.Time `json:"created_at" bson:"created_at" swaggerignore:"true"`
+	UpdatedAt time.Time `json:"updated_at" bson:"updated_at" swaggerignore:"true"`
 }
-
 
 type JwtClaims struct {
 	User User `json:"user"`

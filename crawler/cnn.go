@@ -18,6 +18,7 @@ type CNNCard struct {
 }
 
 func (craw Crawler) StartCNN() ([]CNNCard, error) {
+	log.Println("Running .....")
 	url := craw.Source.URL + "?q=" + craw.Keyword
 
 	// create context
@@ -27,6 +28,7 @@ func (craw Crawler) StartCNN() ([]CNNCard, error) {
 	if err := chromedp.Run(ctx, chromedp.Navigate(url)); err != nil {
 		return nil, fmt.Errorf("could not navigate: %v", err)
 	}
+	log.Println("Navigated .....")
 
 	if err := chromedp.Run(ctx, chromedp.WaitVisible(`.cnn-search__result.cnn-search__result--article`)); err != nil {
 		return nil, fmt.Errorf("could not navigate: %v", err)

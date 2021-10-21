@@ -9,10 +9,8 @@ import (
 
 var DB *gorm.DB
 
-func NewDB() *gorm.DB {
+func NewDB(conString string) *gorm.DB {
 	var err error
-	conString := config.GetPostgresConnectionString()
-
 	DB, err = gorm.Open(config.GetDBType(), conString)
 
 	if err != nil {

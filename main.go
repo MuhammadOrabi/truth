@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"truth/config"
 	"truth/docs"
 	"truth/handlers"
 	middleware2 "truth/middleware"
@@ -52,7 +53,8 @@ func init() {
 }
 
 func main() {
-	db := storage.NewDB()
+	conString := config.GetPostgresConnectionString()
+	db := storage.NewDB(conString)
 	db.AutoMigrate(&model.User{}, &model.Source{})
 
 	e := echo.New()
@@ -72,7 +74,7 @@ func main() {
 
 	config := middleware.JWTConfig{
 		Claims:     &model.JwtClaims{},
-		SigningKey: []byte("secret"),
+		SigningKey: []byte(os.Getenv("JWT_SECRET")),
 		BeforeFunc: func(context echo.Context) {
 			token := context.Request().Header.Get("Authorization")
 			if !strings.HasPrefix(token, "Bearer") {
